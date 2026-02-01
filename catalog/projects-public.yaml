@@ -1,0 +1,270 @@
+# Project Catalog (Public Version)
+# Last updated: 2026-02-01
+#
+# NOTE: This is a sanitized version for public release.
+# Sensitive information (local paths, deployment URLs, PII) has been removed.
+
+# =============================================================================
+# ACTIVE PROJECTS
+# =============================================================================
+
+projects:
+# -----------------------------------------------------------------------------
+# Azure Domain
+# -----------------------------------------------------------------------------
+- name: azure-iac-portal
+  display_name: Azure IaC Portal
+  category: apps
+  domain: azure
+  description: Infrastructure as Code portal for Azure resource management
+  language: TypeScript
+  build_system: npm
+  status: active
+  has_deployment_plan: true
+
+- name: azure-waf-monitor
+  display_name: Azure WAF Monitor
+  category: tools
+  domain: azure
+  description: Azure Well-Architected Framework Dashboard MVP
+  language: TypeScript
+  build_system: Vite
+  status: active
+  has_deployment_plan: true
+
+- name: azure-finops-dashboard
+  display_name: Azure FinOps Dashboard
+  category: tools
+  domain: azure
+  description: Azure FinOps monitoring, optimization, and cost analytics dashboard
+  status: active
+  has_deployment_plan: false
+
+- name: azure-governance-policy-hub
+  display_name: Azure Governance Policy Hub
+  category: tools
+  domain: azure
+  description: Centralized Azure Policy management, deployment, and compliance hub
+  status: active
+  has_deployment_plan: false
+
+- name: azure-rbac-controller
+  display_name: Azure RBAC Controller
+  category: tools
+  domain: azure
+  description: Azure Role-Based Access Control management
+  status: active
+  has_deployment_plan: false
+
+# -----------------------------------------------------------------------------
+# Microsoft 365 Domain
+# -----------------------------------------------------------------------------
+- name: m365-admin-hub
+  display_name: M365 Admin Hub
+  category: apps
+  domain: m365
+  description: Centralised Microsoft 365 administration dashboard
+  language: TypeScript
+  build_system: npm
+  status: active
+  has_deployment_plan: true
+
+- name: m365-azure-maturity-toolbox
+  display_name: M365 Azure Maturity Toolbox
+  category: tools
+  domain: m365
+  description: Enterprise maturity assessment toolkit for M365 and Azure
+  language: PowerShell
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+- name: m365-migration-portal
+  display_name: M365 Migration Portal
+  category: apps
+  domain: m365
+  description: Microsoft 365 tenant-to-tenant migration planning and tracking portal
+  language: TypeScript
+  build_system: npm
+  status: active
+  has_deployment_plan: true
+
+- name: M365MultiTenantManager
+  display_name: M365 Multi-Tenant Manager
+  category: tools
+  domain: m365
+  description: Multi-tenant Microsoft 365 management
+  status: active
+  has_deployment_plan: false
+
+# -----------------------------------------------------------------------------
+# Document Processing Domain
+# -----------------------------------------------------------------------------
+- name: doc-intake-classifier
+  display_name: Document Intake Classifier
+  category: tools
+  domain: doc
+  description: Document classification and intake processing
+  language: Python
+  build_system: Docker
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# Finance Domain
+# -----------------------------------------------------------------------------
+- name: fin-budget-portal
+  display_name: Finance Budget Portal
+  category: apps
+  domain: fin
+  description: Budget management portal with AP integration
+  language: TypeScript
+  build_system: Vite
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# GRC Domain (Governance, Risk, Compliance)
+# -----------------------------------------------------------------------------
+- name: grc-isms-portal
+  display_name: ISMS Portal
+  category: apps
+  domain: grc
+  description: Information Security Management System portal
+  language: TypeScript
+  build_system: Vite
+  status: active
+  has_deployment_plan: true
+
+- name: grc-template-library
+  display_name: GRC Template Library
+  category: libs
+  domain: grc
+  description: Policy and procedure templates for compliance frameworks
+  language: Markdown
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+- name: compliance-ce-plus-preflight-assessment-toolkit
+  display_name: CE+ Preflight Assessment Toolkit
+  category: tools
+  domain: compliance
+  description: Cyber Essentials Plus preflight assessment and readiness toolkit
+  status: active
+  has_deployment_plan: false
+
+- name: compliance-gdpr-dpia-tool
+  display_name: GDPR DPIA Tool
+  category: apps
+  domain: compliance
+  description: Data Protection Impact Assessment platform
+  language: TypeScript
+  build_system: npm
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# HR Domain
+# -----------------------------------------------------------------------------
+- name: hr-onboarding-portal
+  display_name: HR Onboarding Portal
+  category: apps
+  domain: hr
+  description: Dual-portal onboarding system for employees and contractors
+  language: TypeScript
+  build_system: Vite
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# Operations Domain
+# -----------------------------------------------------------------------------
+- name: ops-diagnostic-portal
+  display_name: IT Ops Diagnostic Portal
+  category: apps
+  domain: ops
+  description: IT operations diagnostic and troubleshooting portal
+  language: TypeScript
+  build_system: Next.js
+  status: active
+  has_deployment_plan: true
+
+- name: ops-serviceflow-mvp
+  display_name: ServiceFlow MVP
+  category: apps
+  domain: ops
+  description: Multi-portal service management platform
+  language: HTML
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+- name: ops-supplier-portal
+  display_name: Supplier Portal
+  category: apps
+  domain: ops
+  description: Supplier management and questionnaire portal
+  language: JavaScript
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# Libraries
+# -----------------------------------------------------------------------------
+- name: lib-brand-design-system
+  display_name: Brand Design System
+  category: libs
+  domain: lib
+  description: Design system with tokens, components, and visual assets
+  language: CSS
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# Personal Projects
+# -----------------------------------------------------------------------------
+- name: personal-brochure
+  display_name: Personal Brochure
+  category: personal
+  domain: personal
+  description: Portfolio site
+  language: HTML
+  build_system: Vite
+  status: active
+  has_deployment_plan: true
+
+- name: personal-pensham-daughters
+  display_name: Pensham & Daughters
+  category: personal
+  domain: personal
+  description: Fictional British corporation for demos
+  language: HTML
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+# -----------------------------------------------------------------------------
+# Meta/Documentation
+# -----------------------------------------------------------------------------
+- name: project-catalog
+  display_name: Project Catalog
+  category: docs
+  domain: ops
+  description: Central catalog and documentation for portfolio projects
+  language: Shell
+  build_system: none
+  status: active
+  has_deployment_plan: true
+
+# =============================================================================
+# METADATA
+# =============================================================================
+
+_metadata:
+  last_updated: '2026-02-01'
+  total_active: 23
+  version: public
+  note: Sanitized version - sensitive data removed
