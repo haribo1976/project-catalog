@@ -67,8 +67,11 @@ project-catalog/
 ├── catalog/
 │   ├── projects.yaml            # Machine-readable project catalog
 │   └── projects.md              # Human-readable project listing
+├── docs/
+│   └── VERSIONING.md            # Versioning and release standards
 └── scripts/
-    └── refresh_catalog.sh       # Script to update catalog from local repos
+    ├── refresh_catalog.sh       # Script to update catalog from local repos
+    └── create_releases.sh       # Script to create releases across all projects
 ```
 
 ## Usage
@@ -94,6 +97,20 @@ This will:
 1. Create repo following the naming convention
 2. Run `./scripts/refresh_catalog.sh` to add it to the catalog
 3. Commit and push the updated catalog
+
+### Creating Releases
+
+All projects follow semantic versioning. See [docs/VERSIONING.md](docs/VERSIONING.md) for the full specification.
+
+```bash
+# Create a new release for all projects
+./scripts/create_releases.sh --version v0.2.0-alpha --stage alpha
+
+# Dry run to preview
+./scripts/create_releases.sh --version v0.2.0-alpha --dry-run
+```
+
+**Current Portfolio Version**: `v0.1.0-alpha` (February 2026)
 
 ## Project Scorecard
 
