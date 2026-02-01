@@ -10,6 +10,7 @@
 | **Active** | 21 |
 | **Archived** | 2 |
 | **With CI** | 20 |
+| **With Tests** | 12 |
 | **With Releases** | 23 |
 
 ---
@@ -48,20 +49,20 @@
 
 | Project | Version | CI | Tests | Lint | README | Security |
 |---------|---------|:--:|:-----:|:----:|:------:|:--------:|
-| azure-iac-portal | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ❌ |
-| azure-waf-monitor | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ❌ |
-| doc-intake-classifier | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ❌ |
+| azure-iac-portal | v0.1.0-alpha | ✅ | ✅ | ❌ | ✅ | ❌ |
+| azure-waf-monitor | v0.1.0-alpha | ✅ | ✅ | ✅ | ✅ | ❌ |
+| doc-intake-classifier | v0.1.0-alpha | ✅ | ✅ | ❌ | ✅ | ❌ |
 | fca-file-checker | v0.1.0-alpha | ✅ | ✅ | ❌ | ✅ | ❌ |
-| fin-budget-portal | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ❌ |
-| grc-isms-portal | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ❌ |
+| fin-budget-portal | v0.1.0-alpha | ✅ | ✅ | ✅ | ✅ | ❌ |
+| grc-isms-portal | v0.1.0-alpha | ✅ | ✅ | ✅ | ✅ | ❌ |
 | grc-template-library | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ✅ |
-| hr-onboarding-portal | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ❌ |
+| hr-onboarding-portal | v0.1.0-alpha | ✅ | ✅ | ✅ | ✅ | ❌ |
 | lib-brand-design-system | v0.1.0-alpha | ❌ | ❌ | ❌ | ✅ | ❌ |
-| m365-admin-hub | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ❌ |
+| m365-admin-hub | v0.1.0-alpha | ✅ | ✅ | ❌ | ✅ | ❌ |
 | m365-azure-maturity-toolbox | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ✅ |
 | m365-governance-assessment | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ✅ |
-| m365-migration-portal | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ❌ |
-| ops-diagnostic-portal | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ✅ |
+| m365-migration-portal | v0.1.0-alpha | ✅ | ✅ | ❌ | ✅ | ❌ |
+| ops-diagnostic-portal | v0.1.0-alpha | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ops-serviceflow-mvp | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ✅ |
 | ops-supplier-portal | v0.1.0-alpha | ✅ | ❌ | ❌ | ✅ | ❌ |
 | personal-brochure | v0.1.0-alpha | ✅ | ❌ | ✅ | ✅ | ❌ |

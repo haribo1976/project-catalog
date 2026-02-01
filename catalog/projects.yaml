@@ -21,7 +21,7 @@ projects:
     url: https://github.com/haribo1976/azure-iac-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: false
     readme_quality: good
     security_scan: false
@@ -43,7 +43,7 @@ projects:
     url: https://github.com/haribo1976/azure-waf-monitor/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: true
     readme_quality: good
     security_scan: false
@@ -65,7 +65,7 @@ projects:
     url: https://github.com/haribo1976/doc-intake-classifier/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: false
     readme_quality: good
     security_scan: false
@@ -109,7 +109,7 @@ projects:
     url: https://github.com/haribo1976/fin-budget-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: true
     readme_quality: good
     security_scan: false
@@ -131,7 +131,7 @@ projects:
     url: https://github.com/haribo1976/grc-isms-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: true
     readme_quality: good
     security_scan: false
@@ -175,7 +175,7 @@ projects:
     url: https://github.com/haribo1976/hr-onboarding-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: true
     readme_quality: good
     security_scan: false
@@ -219,7 +219,7 @@ projects:
     url: https://github.com/haribo1976/m365-admin-hub/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: false
     readme_quality: good
     security_scan: false
@@ -285,7 +285,7 @@ projects:
     url: https://github.com/haribo1976/m365-migration-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: false
     readme_quality: good
     security_scan: false
@@ -307,7 +307,7 @@ projects:
     url: https://github.com/haribo1976/ops-diagnostic-portal/releases/tag/v0.1.0-alpha
   scorecard:
     ci_present: true
-    tests_present: false
+    tests_present: true
     lint_present: true
     readme_quality: good
     security_scan: true
