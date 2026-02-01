@@ -210,13 +210,17 @@ projects:
 
 - name: compliance-gdpr-dpia-tool
   display_name: GDPR DPIA Tool
-  category: tools
+  path: /Users/richardstainforth/Projects/compliance-gdpr-dpia-tool
+  category: apps
   domain: compliance
-  description: GDPR-compliant Data Protection Impact Assessment automation
+  description: GDPR-compliant Data Protection Impact Assessment and AI Risk Assessment platform
+  language: TypeScript
+  build_system: npm
   remote: https://github.com/haribo1976/compliance-gdpr-dpia-tool
-  status: stalled
-  has_deployment_plan: false
-  last_commit: '2025-11-06'
+  status: active
+  deployed_url: https://delightful-water-0f4033303.3.azurestaticapps.net
+  has_deployment_plan: true
+  last_commit: '2026-02-01'
 
 # -----------------------------------------------------------------------------
 # HR Domain
