@@ -171,53 +171,295 @@ flowchart LR
 
 ## Network Architecture
 
+### High-Level Network Overview
+
 ```mermaid
 flowchart TB
-    subgraph Internet
+    subgraph Internet["Internet"]
         Users[("Users")]
     end
 
-    subgraph Azure
-        subgraph PublicEndpoints["Public Endpoints"]
-            SWA["Static Web Apps<br/>(13 apps)"]
+    subgraph Azure["Azure Cloud"]
+        subgraph PublicLayer["Public Access Layer"]
+            SWA["Static Web Apps<br/>13 applications"]
+            FUNC_PUB["Azure Functions<br/>(Public Endpoint)"]
+            WEB_PUB["Web Apps<br/>(Public Endpoint)"]
         end
 
-        subgraph m365migrate["rg-m365migrate-dev VNet"]
-            PE1["Private Endpoint<br/>Cosmos DB"]
-            PE2["Private Endpoint<br/>Blob Storage"]
-            PE3["Private Endpoint<br/>Queue Storage"]
-            FUNC["Azure Functions"]
+        subgraph WEU_VNET["West Europe VNet<br/>m365migrate-dev-vnet<br/>10.0.0.0/16"]
+            subgraph FuncSubnet["functions-subnet<br/>10.0.1.0/24"]
+                FUNC["Azure Functions<br/>m365migrate-dev-api"]
+            end
+            subgraph PLSubnet1["privatelink-subnet<br/>10.0.2.0/24"]
+                PE_COSMOS["PE: Cosmos DB"]
+                PE_BLOB["PE: Blob Storage"]
+                PE_QUEUE["PE: Queue Storage"]
+            end
         end
 
-        subgraph m365maturity["rg-m365-maturity-portal VNet"]
-            PE4["Private Endpoint<br/>Key Vault"]
-            PE5["Private Endpoint<br/>Container Registry"]
-            WEBAPP["Web Apps"]
+        subgraph NEU_VNET["North Europe VNet<br/>m365-maturity-portal-vnet<br/>10.0.0.0/16"]
+            subgraph PESubnet["private-endpoints<br/>10.0.1.0/24"]
+                PE_KV["PE: Key Vault"]
+                PE_ACR["PE: Container Registry"]
+            end
+            subgraph AppSubnet["app-services<br/>10.0.2.0/24"]
+                WEB["Web App"]
+                API["API App"]
+            end
         end
 
-        subgraph PrivateDNS["Private DNS Zones"]
-            DNS1["privatelink.documents.azure.com"]
-            DNS2["privatelink.blob.core.windows.net"]
-            DNS3["privatelink.queue.core.windows.net"]
-            DNS4["privatelink.vaultcore.azure.net"]
-            DNS5["privatelink.azurecr.io"]
+        subgraph PaaS["PaaS Resources (Private)"]
+            COSMOS[("Cosmos DB")]
+            STORAGE[("Storage Account")]
+            KV[("Key Vault")]
+            ACR[("Container Registry")]
+        end
+
+        subgraph DNS["Private DNS Zones"]
+            DNS_COSMOS["privatelink.documents.azure.com"]
+            DNS_BLOB["privatelink.blob.core.windows.net"]
+            DNS_QUEUE["privatelink.queue.core.windows.net"]
+            DNS_KV["privatelink.vaultcore.azure.net"]
+            DNS_ACR["privatelink.azurecr.io"]
         end
     end
 
     Users --> SWA
-    Users --> FUNC
-    Users --> WEBAPP
-    FUNC --> PE1
-    FUNC --> PE2
-    FUNC --> PE3
-    WEBAPP --> PE4
-    WEBAPP --> PE5
-    PE1 -.-> DNS1
-    PE2 -.-> DNS2
-    PE3 -.-> DNS3
-    PE4 -.-> DNS4
-    PE5 -.-> DNS5
+    Users --> FUNC_PUB
+    Users --> WEB_PUB
+
+    FUNC --> PE_COSMOS
+    FUNC --> PE_BLOB
+    FUNC --> PE_QUEUE
+
+    WEB --> PE_KV
+    API --> PE_KV
+    API --> PE_ACR
+
+    PE_COSMOS --> COSMOS
+    PE_BLOB --> STORAGE
+    PE_QUEUE --> STORAGE
+    PE_KV --> KV
+    PE_ACR --> ACR
+
+    PE_COSMOS -.-> DNS_COSMOS
+    PE_BLOB -.-> DNS_BLOB
+    PE_QUEUE -.-> DNS_QUEUE
+    PE_KV -.-> DNS_KV
+    PE_ACR -.-> DNS_ACR
+
+    style Internet fill:#f5f5f5
+    style PublicLayer fill:#e8f4e8
+    style WEU_VNET fill:#e3f2fd
+    style NEU_VNET fill:#fff3e0
+    style PaaS fill:#fce4ec
+    style DNS fill:#f3e5f5
 ```
+
+### Detailed VNet Architecture
+
+```mermaid
+flowchart LR
+    subgraph WestEurope["West Europe Region"]
+        subgraph VNET1["m365migrate-dev-vnet-y7xmaa"]
+            direction TB
+            CIDR1["Address Space: 10.0.0.0/16"]
+
+            subgraph Subnet1A["functions-subnet"]
+                S1A_CIDR["10.0.1.0/24"]
+                S1A_RES["Azure Functions<br/>VNet Integration"]
+            end
+
+            subgraph Subnet1B["privatelink-subnet"]
+                S1B_CIDR["10.0.2.0/24"]
+                PE1["m365migrate-dev-cosmos-pe<br/>→ Cosmos DB"]
+                PE2["m365migrate-dev-storage-pe-blob<br/>→ Blob Storage"]
+                PE3["m365migrate-dev-storage-pe-queue<br/>→ Queue Storage"]
+            end
+        end
+
+        subgraph DNS1["Private DNS Zones"]
+            DNS1A["privatelink.documents.azure.com"]
+            DNS1B["privatelink.blob.core.windows.net"]
+            DNS1C["privatelink.queue.core.windows.net"]
+        end
+    end
+
+    subgraph NorthEurope["North Europe Region"]
+        subgraph VNET2["m365-maturity-portal-vnet-cxvs3kbky7xcw"]
+            direction TB
+            CIDR2["Address Space: 10.0.0.0/16"]
+
+            subgraph Subnet2A["private-endpoints"]
+                S2A_CIDR["10.0.1.0/24"]
+                PE4["m365kv-pe<br/>→ Key Vault"]
+                PE5["m365portal-pe<br/>→ Container Registry"]
+            end
+
+            subgraph Subnet2B["app-services"]
+                S2B_CIDR["10.0.2.0/24"]
+                APP1["m365-maturity-portal-web<br/>VNet Integration"]
+                APP2["m365-maturity-portal-api<br/>VNet Integration"]
+            end
+        end
+
+        subgraph DNS2["Private DNS Zones"]
+            DNS2A["privatelink.vaultcore.azure.net"]
+            DNS2B["privatelink.azurecr.io"]
+        end
+    end
+
+    VNET1 -.->|"DNS Link"| DNS1
+    VNET2 -.->|"DNS Link"| DNS2
+
+    style VNET1 fill:#e3f2fd,stroke:#1976d2
+    style VNET2 fill:#fff3e0,stroke:#f57c00
+```
+
+### Private Endpoint Connectivity
+
+```mermaid
+flowchart TB
+    subgraph Apps["Application Layer"]
+        FUNC["Azure Functions<br/>m365migrate-dev-api"]
+        WEB["Web App<br/>m365-maturity-portal-web"]
+        API["API App<br/>m365-maturity-portal-api"]
+    end
+
+    subgraph PrivateEndpoints["Private Endpoints"]
+        subgraph WEU_PE["West Europe VNet"]
+            PE_COSMOS["Cosmos DB PE<br/>10.0.2.x"]
+            PE_BLOB["Blob Storage PE<br/>10.0.2.x"]
+            PE_QUEUE["Queue Storage PE<br/>10.0.2.x"]
+        end
+
+        subgraph NEU_PE["North Europe VNet"]
+            PE_KV["Key Vault PE<br/>10.0.1.x"]
+            PE_ACR["ACR PE<br/>10.0.1.x"]
+        end
+    end
+
+    subgraph Resources["Azure PaaS Resources"]
+        COSMOS[("m365migrate-dev-cosmos<br/>Cosmos DB<br/>UK South")]
+        STORAGE[("stm365migrate<br/>Storage Account<br/>UK South")]
+        KV[("m365kv<br/>Key Vault<br/>North Europe")]
+        ACR[("m365portal<br/>Container Registry<br/>North Europe")]
+    end
+
+    subgraph DNS["Private DNS Resolution"]
+        DNS_DOC["*.documents.azure.com<br/>→ Private IP"]
+        DNS_BLOB["*.blob.core.windows.net<br/>→ Private IP"]
+        DNS_QUEUE["*.queue.core.windows.net<br/>→ Private IP"]
+        DNS_VAULT["*.vaultcore.azure.net<br/>→ Private IP"]
+        DNS_ACR["*.azurecr.io<br/>→ Private IP"]
+    end
+
+    FUNC -->|"Private"| PE_COSMOS
+    FUNC -->|"Private"| PE_BLOB
+    FUNC -->|"Private"| PE_QUEUE
+
+    WEB -->|"Private"| PE_KV
+    API -->|"Private"| PE_KV
+    API -->|"Private"| PE_ACR
+
+    PE_COSMOS --> COSMOS
+    PE_BLOB --> STORAGE
+    PE_QUEUE --> STORAGE
+    PE_KV --> KV
+    PE_ACR --> ACR
+
+    PE_COSMOS -.-> DNS_DOC
+    PE_BLOB -.-> DNS_BLOB
+    PE_QUEUE -.-> DNS_QUEUE
+    PE_KV -.-> DNS_VAULT
+    PE_ACR -.-> DNS_ACR
+
+    style Apps fill:#c8e6c9
+    style PrivateEndpoints fill:#bbdefb
+    style Resources fill:#ffcdd2
+    style DNS fill:#e1bee7
+```
+
+### Network Resource Inventory
+
+| Resource | Type | Location | Address Space | Connected To |
+|----------|------|----------|---------------|--------------|
+| **m365migrate-dev-vnet-y7xmaa** | VNet | West Europe | 10.0.0.0/16 | - |
+| ├─ functions-subnet | Subnet | West Europe | 10.0.1.0/24 | Azure Functions |
+| └─ privatelink-subnet | Subnet | West Europe | 10.0.2.0/24 | Private Endpoints |
+| **m365-maturity-portal-vnet** | VNet | North Europe | 10.0.0.0/16 | - |
+| ├─ private-endpoints | Subnet | North Europe | 10.0.1.0/24 | Private Endpoints |
+| └─ app-services | Subnet | North Europe | 10.0.2.0/24 | Web Apps |
+
+### Private Endpoint Details
+
+| Private Endpoint | Resource Group | Target Resource | Target Type | Subnet |
+|------------------|----------------|-----------------|-------------|--------|
+| m365migrate-dev-cosmos-pe | rg-m365migrate-dev | m365migrate-dev-cosmos | Cosmos DB | privatelink-subnet |
+| m365migrate-dev-storage-pe-blob | rg-m365migrate-dev | stm365migrate | Storage (Blob) | privatelink-subnet |
+| m365migrate-dev-storage-pe-queue | rg-m365migrate-dev | stm365migrate | Storage (Queue) | privatelink-subnet |
+| m365kv-pe | rg-m365-maturity-portal | m365kv | Key Vault | private-endpoints |
+| m365portal-pe | rg-m365-maturity-portal | m365portal | Container Registry | private-endpoints |
+
+### Private DNS Zones
+
+| DNS Zone | Resource Group | Linked VNets | Purpose |
+|----------|----------------|--------------|---------|
+| privatelink.documents.azure.com | rg-m365migrate-dev | m365migrate-dev-vnet | Cosmos DB |
+| privatelink.blob.core.windows.net | rg-m365migrate-dev | m365migrate-dev-vnet | Blob Storage |
+| privatelink.queue.core.windows.net | rg-m365migrate-dev | m365migrate-dev-vnet | Queue Storage |
+| privatelink.vaultcore.azure.net | rg-m365-maturity-portal | m365-maturity-portal-vnet | Key Vault |
+| privatelink.azurecr.io | rg-m365-maturity-portal | m365-maturity-portal-vnet | Container Registry |
+
+### Network Security Posture
+
+```mermaid
+flowchart LR
+    subgraph Public["Public Internet"]
+        USER[("Users")]
+    end
+
+    subgraph Edge["Edge Security"]
+        SWA_SEC["Static Web Apps<br/>Built-in DDoS<br/>TLS 1.2+"]
+    end
+
+    subgraph AppLayer["Application Layer"]
+        FUNC_SEC["Azure Functions<br/>Auth/AuthZ<br/>Managed Identity"]
+        WEB_SEC["Web Apps<br/>Auth/AuthZ<br/>Managed Identity"]
+    end
+
+    subgraph DataLayer["Data Layer (Private Only)"]
+        COSMOS_SEC["Cosmos DB<br/>🔒 Private Endpoint Only<br/>RBAC Enabled"]
+        KV_SEC["Key Vault<br/>🔒 Private Endpoint Only<br/>RBAC Enabled"]
+        STORAGE_SEC["Storage<br/>🔒 Private Endpoint Only<br/>Encryption at Rest"]
+        ACR_SEC["Container Registry<br/>🔒 Private Endpoint Only<br/>Content Trust"]
+    end
+
+    USER --> SWA_SEC
+    USER --> FUNC_SEC
+    USER --> WEB_SEC
+
+    FUNC_SEC -->|"Private Link"| COSMOS_SEC
+    FUNC_SEC -->|"Private Link"| STORAGE_SEC
+    WEB_SEC -->|"Private Link"| KV_SEC
+    WEB_SEC -->|"Private Link"| ACR_SEC
+
+    style Public fill:#ffebee
+    style Edge fill:#e8f5e9
+    style AppLayer fill:#e3f2fd
+    style DataLayer fill:#f3e5f5
+```
+
+### Network Recommendations
+
+| Area | Current State | Recommendation | Priority |
+|------|---------------|----------------|----------|
+| **VNet Peering** | No peering between VNets | Consider peering if cross-region communication needed | Low |
+| **NSGs** | Not detected | Add NSGs to subnets for granular traffic control | Medium |
+| **Azure Firewall** | Not deployed | Consider for centralized egress control | Low |
+| **DDoS Protection** | Standard (platform) | Consider DDoS Protection Standard for production | Medium |
+| **Private DNS** | Configured per VNet | Consider centralized Private DNS Hub | Low |
+| **Service Endpoints** | Not used | Already using Private Endpoints (better) | N/A |
 
 ## Cost Optimization Notes
 
