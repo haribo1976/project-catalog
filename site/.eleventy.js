@@ -26,5 +26,6 @@ module.exports = function (eleventyConfig) {
     },
     templateFormats: ["njk"],
     htmlTemplateEngine: "njk",
+    pathPrefix: process.env.PAGES_PATH_PREFIX || "/",
   };
 };

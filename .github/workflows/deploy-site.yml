@@ -31,6 +31,8 @@ jobs:
 
       - name: Install and build
         working-directory: site
+        env:
+          PAGES_PATH_PREFIX: /project-catalog
         run: |
           npm ci
           npm run build
