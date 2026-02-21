@@ -1,0 +1,55 @@
+---
+layout: base.njk
+title: Project Explorer
+---
+
+<section class="stats-bar" aria-label="Portfolio statistics">
+  <div class="stat">
+    <span class="stat-value">{{ catalog.stats.total }}</span>
+    <span class="stat-label">Projects</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ catalog.stats.withDeploymentPlan }}</span>
+    <span class="stat-label">Deploy Plans</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ catalog.stats.domains }}</span>
+    <span class="stat-label">Domains</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">{{ catalog.stats.categories }}</span>
+    <span class="stat-label">Categories</span>
+  </div>
+</section>
+
+<section class="controls" aria-label="Filters">
+  <input type="search" id="search" class="search-input"
+    placeholder="Search projects..." aria-label="Search projects">
+
+  <div class="filter-group">
+    <span class="filter-label">Domain</span>
+    <div class="filter-pills" id="domain-filters">
+      <button class="pill active" data-filter-domain="all">All</button>
+      {% for domain in catalog.domains %}
+      <button class="pill" data-filter-domain="{{ domain }}">{{ domain | domainLabel }}</button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    <div class="filter-pills" id="category-filters">
+      <button class="pill active" data-filter-category="all">All</button>
+      {% for cat in catalog.categories %}
+      <button class="pill" data-filter-category="{{ cat }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="project-grid" id="project-grid" aria-label="Projects">
+  <p class="results-count" id="results-count" aria-live="polite"></p>
+  {% for project in catalog.projects %}
+    {% include "project-card.njk" %}
+  {% endfor %}
+</section>

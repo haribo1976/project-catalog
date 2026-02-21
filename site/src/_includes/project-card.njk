@@ -1,0 +1,23 @@
+<article class="project-card"
+  data-domain="{{ project.domain }}"
+  data-category="{{ project.category }}"
+  data-name="{{ project.display_name | lower }}"
+  data-description="{{ project.description | lower }}">
+  <div class="card-header">
+    <h2 class="card-title">{{ project.display_name }}</h2>
+    <span class="badge badge--{{ project.category }}">{{ project.category }}</span>
+  </div>
+  <p class="card-description">{{ project.description }}</p>
+  <div class="card-meta">
+    <span class="meta-tag meta-tag--domain">{{ project.domain | domainLabel }}</span>
+    {% if project.language %}
+    <span class="meta-tag meta-tag--lang">{{ project.language }}</span>
+    {% endif %}
+    {% if project.build_system and project.build_system != "none" %}
+    <span class="meta-tag meta-tag--build">{{ project.build_system }}</span>
+    {% endif %}
+    {% if project.has_deployment_plan %}
+    <span class="meta-tag meta-tag--deploy">Deploy Plan</span>
+    {% endif %}
+  </div>
+</article>

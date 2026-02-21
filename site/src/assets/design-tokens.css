@@ -1,0 +1,184 @@
+/**
+ * Brand Design System — Design Tokens
+ * Richard Stainforth Visual Identity
+ * Version 1.0.0
+ */
+
+:root {
+  /* ========================================
+     COLORS
+     ======================================== */
+
+  /* Primary Colors */
+  --color-off-white: #E8EBE4;
+  --color-beige-green: #B8BFB0;
+  --color-concrete: #4A524A;
+  --color-dark-green: #2C3028;
+  --color-deep-teal: #1B4D3E;
+
+  /* Background Colors */
+  --color-background-dark: #1A1D1A;
+  --color-background-light: #F5F6F3;
+
+  /* Accent Colors */
+  --color-emergency-red: #8B0000;
+
+  /* Semantic Aliases */
+  --color-text-primary: var(--color-off-white);
+  --color-text-secondary: var(--color-beige-green);
+  --color-text-tertiary: var(--color-concrete);
+  --color-border: var(--color-concrete);
+  --color-surface: var(--color-dark-green);
+  --color-accent: var(--color-deep-teal);
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+
+  /* Font Families */
+  --font-heading: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.6875rem;    /* 11px */
+  --text-sm: 0.75rem;      /* 12px */
+  --text-base: 0.875rem;   /* 14px */
+  --text-md: 0.9375rem;    /* 15px */
+  --text-lg: 1rem;         /* 16px */
+  --text-xl: 1.125rem;     /* 18px */
+  --text-2xl: 1.25rem;     /* 20px */
+  --text-3xl: 1.5rem;      /* 24px */
+  --text-4xl: 2rem;        /* 32px */
+  --text-5xl: 2.5rem;      /* 40px */
+  --text-hero: clamp(2.5rem, 6vw, 4rem);
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.6;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.15em;
+  --tracking-ultra: 0.25em;
+
+  /* ========================================
+     SPACING
+     ======================================== */
+
+  --space-0: 0;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --space-9: 72px;
+  --space-10: 80px;
+  --space-11: 88px;
+  --space-12: 96px;
+
+  /* ========================================
+     LAYOUT
+     ======================================== */
+
+  /* Container Widths */
+  --width-hero: 900px;
+  --width-content: 1200px;
+  --width-narrow: 720px;
+
+  /* Grid */
+  --grid-cell: 80px;
+  --grid-gap: var(--space-4);
+
+  /* ========================================
+     BORDERS
+     ======================================== */
+
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--color-concrete);
+  --border: var(--border-width) var(--border-style) var(--border-color);
+
+  /* Border Radius — Minimal */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ========================================
+     SHADOWS — None by default
+     ======================================== */
+
+  --shadow-none: none;
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  --ease-out: ease-out;
+  --ease-in-out: ease-in-out;
+
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-slow: var(--duration-slow) var(--ease-out);
+
+  /* ========================================
+     ICONS
+     ======================================== */
+
+  --icon-stroke-width: 1.5;
+  --icon-size-sm: 16px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 32px;
+  --icon-size-xl: 48px;
+
+  /* ========================================
+     Z-INDEX
+     ======================================== */
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal: 400;
+  --z-overlay: 500;
+  --z-max: 9999;
+}
+
+/* ========================================
+   DARK MODE (Default)
+   ======================================== */
+
+[data-theme="dark"],
+:root {
+  color-scheme: dark;
+}
+
+/* ========================================
+   LIGHT MODE (Reserved)
+   ======================================== */
+
+[data-theme="light"] {
+  color-scheme: light;
+  --color-text-primary: var(--color-dark-green);
+  --color-text-secondary: var(--color-concrete);
+  --color-background-dark: var(--color-background-light);
+}
