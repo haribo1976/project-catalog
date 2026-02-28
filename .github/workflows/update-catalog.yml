@@ -29,6 +29,13 @@ jobs:
         run: |
           pip install pyyaml requests
 
+      - name: Bootstrap projects.yaml if missing
+        run: |
+          if [ ! -f "catalog/projects.yaml" ]; then
+            echo "catalog/projects.yaml not found — bootstrapping from projects-public.yaml"
+            cp catalog/projects-public.yaml catalog/projects.yaml
+          fi
+
       - name: Update catalog from GitHub API
         env:
           GITHUB_TOKEN: ${{ secrets.CATALOG_PAT }}
